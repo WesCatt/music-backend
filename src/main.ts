@@ -5,6 +5,8 @@ import { ValidationPipe } from '@nestjs/common';
 import { FormatMessageFilter } from './common/format-message/format-message.filter';
 import { FormatMessageInterceptor } from './common/format-message/format-message.interceptor';
 import cors from './common/utils/cors';
+import { AuthGuard } from './common/auth.guard';
+import { JwtService } from '@nestjs/jwt';
 
 async function bootstrap() {
   dotenv.config();
@@ -22,6 +24,7 @@ async function bootstrap() {
     origin: cors || '*',
   });
   app.setGlobalPrefix('api');
+  app.useGlobalGuards(new AuthGuard(app.get(JwtService)));
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();

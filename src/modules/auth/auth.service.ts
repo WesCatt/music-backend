@@ -14,4 +14,8 @@ export class AuthService {
   async register(registerDto: RegisterDto) {
     console.log(registerDto);
   }
+
+  async profile() {}
+
+  async logout() {}
 }
