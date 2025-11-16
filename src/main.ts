@@ -1,11 +1,11 @@
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as dotenv from 'dotenv';
 import { ValidationPipe } from '@nestjs/common';
-import { FormatMessageFilter } from './common/format-message/format-message.filter';
-import { FormatMessageInterceptor } from './common/format-message/format-message.interceptor';
+import { FormatMessageFilter } from './common/filters/format-message.filter';
+import { FormatMessageInterceptor } from './common/interceptors/format-message.interceptor';
 import cors from './common/utils/cors';
-import { AuthGuard } from './common/auth.guard';
+import { AuthGuard } from './common/guards/auth.guard';
 import { JwtService } from '@nestjs/jwt';
 
 async function bootstrap() {
@@ -24,7 +24,9 @@ async function bootstrap() {
     origin: cors || '*',
   });
   app.setGlobalPrefix('api');
-  app.useGlobalGuards(new AuthGuard(app.get(JwtService)));
+
+  // 全局守卫
+  app.useGlobalGuards(new AuthGuard(app.get(JwtService), app.get(Reflector)));
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();

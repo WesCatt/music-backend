@@ -19,15 +19,21 @@ datasource db {
 model User {
   id       Int     @id @default(autoincrement())
   username String
-  email    String?
+  email    String? @unique()
   password String
-  token    String
+  token    String?
 
+  role       Role     @default(USER)
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
   // 上传的音乐
   songs Song[]
+}
+
+enum Role {
+  ADMIN
+  USER
 }
 
 // 音频列表

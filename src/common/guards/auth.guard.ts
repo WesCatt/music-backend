@@ -6,14 +6,25 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Observable } from 'rxjs';
+import { Reflector } from '@nestjs/core';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private jwtService: JwtService) {}
+  constructor(
+    private jwtService: JwtService,
+    private reflector: Reflector,
+  ) {}
   canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
     const request = context.switchToHttp().getRequest();
+
+    const isNeedLogin: boolean = this.reflector.getAllAndOverride(
+      'skip-login',
+      [context.getHandler(), context.getClass()],
+    );
+    if (isNeedLogin) return true;
+
     const authHeader = request.headers['authorization'];
 
     if (!authHeader) {
