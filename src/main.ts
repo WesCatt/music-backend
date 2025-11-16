@@ -21,7 +21,7 @@ async function bootstrap() {
     // 允许跨域的域名
     origin: cors || '*',
   });
-
+  app.setGlobalPrefix('api');
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();

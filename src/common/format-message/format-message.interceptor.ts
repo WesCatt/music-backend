@@ -5,8 +5,9 @@ import {
   NestInterceptor,
 } from '@nestjs/common';
 import { map, Observable } from 'rxjs';
+import { Response } from 'express';
 
-// 拦截器，在这里对返回信息做格式化处理，不包括错误信息
+// 异常拦截器，在这里对返回信息做格式化处理，不包括错误信息
 @Injectable()
 export class FormatMessageInterceptor implements NestInterceptor {
   intercept(

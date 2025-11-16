@@ -21,6 +21,7 @@ export class FormatMessageFilter implements ExceptionFilter {
     let status = 500;
     let res: { message: string[] | string } = { message: '' };
 
+    // 如果是http 错误
     if (exception instanceof HttpException) {
       status = exception.getStatus();
       res = exception.getResponse() as { message: string[] };
@@ -28,7 +29,7 @@ export class FormatMessageFilter implements ExceptionFilter {
 
     const message = res.message;
 
-    // 如果是未查找错误
+    // 如果是不存在资源的错误
     if (exception instanceof NotFoundException) {
       response.status(404).send('Not Found');
     } else {
