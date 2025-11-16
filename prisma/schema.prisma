@@ -5,8 +5,8 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider     = "prisma-client"
+  output       = "../generated/prisma"
   moduleFormat = "cjs"
 }
 
@@ -26,7 +26,7 @@ model User {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  // 表示上传的音乐
+  // 上传的音乐
   songs Song[]
 }
 
