@@ -8,12 +8,21 @@ import { SkipLogin } from '../../common/decorators/auth.decorators';
 export class AuthController {
   constructor(private authService: AuthService) {}
 
+  // 普通登录
   @SkipLogin()
   @Post('/sign-in')
   async login(@Body() loginDto: LoginDto) {
     return this.authService.login(loginDto);
   }
 
+  // google 登录
+  @SkipLogin()
+  @Post('/sign-in/google')
+  async loginByGoogle(){
+
+  }
+
+  // 注册
   @Post('/sign-up')
   async register(@Body() registerDto: RegisterDto) {
     return this.authService.register(registerDto);

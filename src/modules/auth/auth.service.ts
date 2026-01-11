@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, HttpException, Injectable } from '@nestjs/common';
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
 import { UserService } from '../user/user.service';
@@ -19,10 +19,10 @@ export class AuthService {
     const user = await this.userService.findUnique({
       email,
     });
-    if (!user) throw new Error('无效账号!');
+    if (!user) throw new BadRequestException('无效账号！');
     const isSamePassword = await compareHash(password, user.password);
     if (!isSamePassword) {
-      throw new Error('密码错误，请重试！');
+      throw new BadRequestException('密码错误，请重试！');
     }
     const payload = {
       sub: user.id,

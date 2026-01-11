@@ -2,6 +2,7 @@ import { Global, Module } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserController } from './user.controller';
 
+// 表示全局可用
 @Global()
 @Module({
   // 表示注册服务

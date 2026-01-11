@@ -12,7 +12,7 @@ const users: {
   {
     username: 'WesCatt',
     email: 'zzxcmdyx@163.com',
-    password: '',
+    password: '12345678',
     role: 'ADMIN',
   },
   {
